@@ -22,7 +22,7 @@ The first one, should be the list of charities with pagination, and a search for
 
 The UI of each item should look something like the image below:
 
-![](/frontend/charity-search/docs/charity-item.png)
+![](/docs/charity-item.png)
 
 > The image is referencial, it doesn't have to look exactly like that, use any spacing, size and color you think may look good.
 
