@@ -1,4 +1,4 @@
-# Charity Search
+# Frontend Challenge: Charity Search
 
 ## Intro
 
