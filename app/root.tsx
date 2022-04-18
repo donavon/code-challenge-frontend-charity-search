@@ -9,7 +9,7 @@ import {
 } from "remix";
 
 export const meta: MetaFunction = () => {
-  return { title: "Charity Sarch" };
+  return { title: "Charity Search" };
 };
 
 export default function App() {
