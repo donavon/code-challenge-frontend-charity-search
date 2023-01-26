@@ -1,8 +1,8 @@
-import { faker } from "@faker-js/faker";
-import fs from "node:fs/promises";
-import { resolve } from "node:path";
-import { randomUUID } from "node:crypto";
-import { z } from "zod";
+import { faker } from '@faker-js/faker';
+import fs from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { randomUUID } from 'node:crypto';
+import { z } from 'zod';
 
 const CharitySchema = z.object({
   id: z.string().uuid(),
@@ -27,7 +27,7 @@ const ERROR_RATE = 5;
 export function api() {
   function raise() {
     if (Math.random() * 100 > ERROR_RATE) return;
-    throw new Error("Something went wrong");
+    throw new Error('Something went wrong');
   }
 
   function sleep(ms: number) {
@@ -38,7 +38,7 @@ export function api() {
     let delay = Math.ceil(Math.random() * 150) + 50;
     await sleep(delay);
     raise();
-  } 
+  }
 
   return {
     charities: {
@@ -46,11 +46,11 @@ export function api() {
        * Get a single charity using the ID.
        */
       async show(id: string) {
-        fakeNetwork();
+        await fakeNetwork();
 
         let charities = CharitySchema.array().parse(
           JSON.parse(
-            await fs.readFile(resolve("./app/data/charities.json"), "utf8")
+            await fs.readFile(resolve('./app/data/charities.json'), 'utf8')
           )
         );
 
@@ -62,11 +62,11 @@ export function api() {
        * Optionally filter by name.
        */
       async list({ term, page = 1 }: { term?: string; page?: number } = {}) {
-        fakeNetwork();
+        await fakeNetwork();
 
         let charities = CharitySchema.array().parse(
           JSON.parse(
-            await fs.readFile(resolve("./app/data/charities.json"), "utf8")
+            await fs.readFile(resolve('./app/data/charities.json'), 'utf8')
           )
         );
 
@@ -78,7 +78,7 @@ export function api() {
               charity.name.toLowerCase().includes(term.toLowerCase()) ||
               charity.city.toLowerCase().includes(term.toLowerCase()) ||
               charity.state.toLowerCase().includes(term.toLowerCase()) ||
-              charity.mission.toLowerCase().includes(term.toLowerCase()) || 
+              charity.mission.toLowerCase().includes(term.toLowerCase()) ||
               charity.about.toLowerCase().includes(term.toLowerCase())
             );
           })
@@ -94,21 +94,21 @@ export function api() {
         charity: Partial<
           Pick<
             Charity,
-            "name" | "city" | "mission" | "state" | "about" | "website" | "ein"
+            'name' | 'city' | 'mission' | 'state' | 'about' | 'website' | 'ein'
           >
         >
       ) {
-        fakeNetwork();
+        await fakeNetwork();
 
         let charities = CharitySchema.array().parse(
           JSON.parse(
-            await fs.readFile(resolve("./app/data/charities.json"), "utf8")
+            await fs.readFile(resolve('./app/data/charities.json'), 'utf8')
           )
         );
 
         let result: Charity = CharitySchema.parse({
           id: randomUUID(),
-          logo: "https://static.daffy.org/avatars/logo-placeholder.png",
+          logo: 'https://static.daffy.org/avatars/logo-placeholder.png',
           name: faker.company.name(),
           city: faker.address.city(),
           state: faker.address.state(),
@@ -120,9 +120,9 @@ export function api() {
         });
 
         await fs.writeFile(
-          resolve("./app/data/charities.json"),
+          resolve('./app/data/charities.json'),
           JSON.stringify(charities.concat(result), null, 2),
-          "utf-8"
+          'utf-8'
         );
 
         return result;
