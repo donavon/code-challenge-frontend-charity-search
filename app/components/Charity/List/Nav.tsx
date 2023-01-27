@@ -1,60 +1,45 @@
 import { Link } from '@remix-run/react';
+import { LinkButton } from '~/components/LinkButton';
+import { useCharitySearchParams } from '~/hooks/useCharitySearchParams';
 import { Search } from './Search';
 
 type NavProps = {
-  currentPage: number;
   isLastPage: boolean;
-  term: string;
 };
 
-export const Nav = ({ currentPage, isLastPage, term }: NavProps) => {
-  const isFirstPage = currentPage === 1;
+export const Nav = ({ isLastPage }: NavProps) => {
+  const { term, page } = useCharitySearchParams();
+
+  const isFirstPage = page === 1;
   const searchQuery = term ? `&q=${encodeURIComponent(term)}` : '';
 
   return (
     <nav>
       <ul>
         <li>
-          {isFirstPage ? (
-            <span role="button" className="secondary outline">
-              &lt; Prev
-            </span>
-          ) : (
-            <Link
-              role="button"
-              to={`/charities?page=${currentPage - 1}${searchQuery}`}
-              prefetch="intent"
-            >
-              &lt; Prev
-            </Link>
-          )}
-        </li>
-        <li>
-          <span>Page: {currentPage}</span>
+          <LinkButton
+            aria-disabled={isFirstPage}
+            to={`/charities?page=${page - 1}${searchQuery}`}
+          >
+            &lt; Prev
+          </LinkButton>
         </li>
 
+        <li>Page: {page}</li>
+
         <li>
-          {isLastPage ? (
-            <span role="button" className="secondary outline">
-              Next &gt;
-            </span>
-          ) : (
-            <Link
-              role="button"
-              to={`/charities?page=${currentPage + 1}${searchQuery}`}
-              prefetch="intent"
-            >
-              Next &gt;
-            </Link>
-          )}
+          <LinkButton
+            aria-disabled={isLastPage}
+            to={`/charities?page=${page + 1}${searchQuery}`}
+          >
+            Next &gt;
+          </LinkButton>
         </li>
       </ul>
 
       <ul>
         <li>
-          <Link role="button" to="/charities/new" prefetch="intent">
-            Add Charity
-          </Link>
+          <LinkButton to="/charities/new">Add Charity</LinkButton>
         </li>
       </ul>
 

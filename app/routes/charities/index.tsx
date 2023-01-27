@@ -4,6 +4,7 @@ import { Link, useLoaderData, useLocation } from '@remix-run/react';
 import { getCharities } from '~/api.server';
 import { List } from '~/components/Charity/List';
 import { ListLayout } from '~/components/Charity/List/ListLayout';
+import { LinkButton } from '~/components/LinkButton';
 import { useCharitySearchParams } from '~/hooks/useCharitySearchParams';
 import { CharityListSchema } from '~/types/Charity.types';
 
@@ -45,9 +46,7 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
     <ListLayout isLastPage={true}>
       <article>
         <h2>Oops... Something went wrong</h2>
-        <Link role="button" to={location} prefetch="intent">
-          Try again
-        </Link>
+        <LinkButton to={location}>Try again</LinkButton>
       </article>
     </ListLayout>
   );

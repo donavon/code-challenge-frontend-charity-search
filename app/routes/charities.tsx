@@ -1,5 +1,6 @@
 import type { ErrorBoundaryComponent } from '@remix-run/node';
 import { Link, Outlet, useLocation } from '@remix-run/react';
+import { LinkButton } from '~/components/LinkButton';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -33,9 +34,7 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
           <pre>{error.message}</pre>
         </details>
 
-        <Link role="button" to={location} prefetch="intent">
-          Try again
-        </Link>
+        <LinkButton to={location}>Try again</LinkButton>
       </article>
     </Layout>
   );
