@@ -1,5 +1,6 @@
 import type { ErrorBoundaryComponent } from '@remix-run/node';
-import { Link, Outlet, useLocation } from '@remix-run/react';
+import { Outlet, useLocation } from '@remix-run/react';
+import { Header } from '~/components/Header';
 import { LinkButton } from '~/components/LinkButton';
 
 type LayoutProps = {
@@ -7,19 +8,11 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => (
-  <>
-    <small>
-      minimally styled with{' '}
-      <a href="https://picocss.com/" target="_blank" rel="noreferrer">
-        Pico CSS
-      </a>
-    </small>
-    <Link to="/charities" prefetch="intent">
-      <h1>Charities</h1>
-    </Link>
+  <div className="flex flex-col gap-6 max-w-[1024px] w-full px-6 py-8">
+    <Header />
 
     {children}
-  </>
+  </div>
 );
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {

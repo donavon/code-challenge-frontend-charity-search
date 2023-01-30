@@ -7,7 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import picoCssUrl from '@picocss/pico/css/pico.css';
+
+import tailwindStylesheet from '~/tailwind.css';
 
 export const meta: MetaFunction = () => {
   return {
@@ -17,9 +18,8 @@ export const meta: MetaFunction = () => {
   };
 };
 
-// load the Pico CSS stylesheet for minimal styling
 export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: picoCssUrl }];
+  return [{ rel: 'stylesheet', href: tailwindStylesheet }];
 };
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-background text-text flex flex-col items-center">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

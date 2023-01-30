@@ -1,6 +1,6 @@
 import type { ErrorBoundaryComponent, LoaderArgs } from '@remix-run/node';
 import { json } from '@remix-run/node';
-import { Link, useLoaderData, useLocation } from '@remix-run/react';
+import { useLoaderData, useLocation } from '@remix-run/react';
 import { getCharities } from '~/api.server';
 import { List } from '~/components/Charity/List';
 import { ListLayout } from '~/components/Charity/List/ListLayout';
@@ -44,10 +44,8 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
 
   return (
     <ListLayout isLastPage={true}>
-      <article>
-        <h2>Oops... Something went wrong</h2>
-        <LinkButton to={location}>Try again</LinkButton>
-      </article>
+      <h2>Oops... Something went wrong</h2>
+      <LinkButton to={location}>Try again</LinkButton>
     </ListLayout>
   );
 };
