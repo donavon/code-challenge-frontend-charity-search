@@ -22,7 +22,7 @@ type Charity = z.infer<typeof CharitySchema>;
  * How common is for an error to happen when calling an API method.
  * Change this value to make it more or less common.
  */
-const ERROR_RATE = 5;
+const ERROR_RATE = 0;
 
 export function api() {
   function raise() {
